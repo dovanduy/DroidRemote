@@ -16,14 +16,25 @@
                       FontFamily="Roboto"
                       ResizeMode="CanResize"
                       Title="DroidRemote Viewer" Height="500" Width="300">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ViewLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Name="MenuGrid">
             <materialSidebar:SideMenu HorizontalAlignment="Left" x:Name="Menu"
                                    Theme="Default"
                                    ClosingType="Manual"
                                    State="Visible" ShadowBackground="#00000000">
                 <materialSidebar:SideMenu.Menu>
-                    <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Margin="0,0,360,0">
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Margin="0,0,0,0" HorizontalAlignment="Left" Width="40">
                         <StackPanel Orientation="Vertical">
                             <Border Background="#FF1872BD">
                                 <Grid Margin="10">
@@ -38,6 +49,11 @@
                             </materialSidebar:MenuButton>
                             <materialSidebar:MenuButton>
                                 <Grid Margin="10">
+                                    <materialDesign:PackIcon Kind="Settings" />
+                                </Grid>
+                            </materialSidebar:MenuButton>
+                            <materialSidebar:MenuButton>
+                                <Grid Margin="10">
                                     <materialDesign:PackIcon Kind="ExitToApp" />
                                 </Grid>
                             </materialSidebar:MenuButton>
@@ -47,7 +63,7 @@
             </materialSidebar:SideMenu>
         </Grid>
         <Grid Grid.Column="2">
-            
+            <Image />
         </Grid>
     </Grid>
     <Window.DataContext>
