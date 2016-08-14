@@ -1,4 +1,5 @@
 ﻿using DroidRemote.Core.Utilities;
+using DroidRemote.Windows.Views;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using NanoMvvm;
@@ -13,13 +14,20 @@ namespace DroidRemote.Windows.VM
     {
         public ICommand ConnectToDeviceCommand => new DelegateCommand(ConnectToDevice);
 
+        private WindowService _windowService = new WindowService();
+
         private async void ConnectToDevice(object obj)
         {
             if (!await VerifyAdbPath())
             {
                 //Adb could not be verified.
                 var tryAgain = await (View as MetroWindow).ShowMessageAsync("Error", "Oops! A valid ADB executable could not be found in that path. Verify and try again?");
+                return;
             }
+
+            //Launch the viewer
+            (View as MetroWindow).Hide();
+            _windowService.ShowWindowDialog<RemoteViewer>(View.WindowHandle);
         }
 
         private async Task<bool> VerifyAdbPath()
