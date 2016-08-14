@@ -1,5 +1,7 @@
-﻿using SharpAdbClient;
+﻿using DroidRemote.Core.RemoteViewer;
+using SharpAdbClient;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,6 +11,8 @@ namespace DroidRemote.Core.States
     {
         public DeviceData ConnectedDevice;
         public string AdbExecutablePath;
+
+        private ScreenStreamer _screenStreamer;
 
         public RemoteViewerState(string adbExecutablePath)
         {
@@ -29,6 +33,10 @@ namespace DroidRemote.Core.States
                 return false;
             }
             ConnectedDevice = availableDevices[0]; //TODO: Use a better method later
+
+            //Create utility objects
+            _screenStreamer = new ScreenStreamer(ConnectedDevice, AdbExecutablePath);
+
             return true;
         }
 
@@ -37,6 +45,12 @@ namespace DroidRemote.Core.States
             var devices = AdbClient.Instance.GetDevices();
             //return devices.Select(device=>device.Serial).ToList();
             return devices;
+        }
+
+        public async Task<MemoryStream> GetScreenImageStreamViaProcess()
+        {
+            var screenshotStream = await Task.Run(()=>_screenStreamer.GetImageStreamScreenshotViaProcess());
+            return screenshotStream;
         }
     }
 }

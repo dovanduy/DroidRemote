@@ -17,7 +17,7 @@ namespace DroidRemote.Core.RemoteViewer
             AdbExecutablePath = adbExecutablePath;
         }
 
-        public void GetImageStreamScreenshotViaProcess()
+        public MemoryStream GetImageStreamScreenshotViaProcess()
         {
             var streamImageProcess = new Process
             {
@@ -34,6 +34,7 @@ namespace DroidRemote.Core.RemoteViewer
             streamImageProcess.Start();
             streamImageProcess.StandardOutput.BaseStream.CopyTo(receiveImageStream);
             streamImageProcess.WaitForExit();
+            return receiveImageStream;
         }
     }
 }
