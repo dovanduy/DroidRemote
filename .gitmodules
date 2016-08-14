@@ -4,3 +4,6 @@
 [submodule "Dependencies/MaterialSidebar"]
 	path = Dependencies/MaterialSidebar
 	url = https://github.com/IridiumIon/MaterialSidebar
+[submodule "Dependencies/SharpAdbClient"]
+	path = Dependencies/SharpAdbClient
+	url = https://github.com/exaphaser/SharpAdbClient
