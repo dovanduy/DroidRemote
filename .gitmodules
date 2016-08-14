@@ -1,6 +1,3 @@
-[submodule "Dependencies/madb"]
-	path = Dependencies/madb
-	url = https://github.com/quamotion/madb
 [submodule "Dependencies/NanoMvvm"]
 	path = Dependencies/NanoMvvm
 	url = https://github.com/exaphaser/NanoMvvm.git
