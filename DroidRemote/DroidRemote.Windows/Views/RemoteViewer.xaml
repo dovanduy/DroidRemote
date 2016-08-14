@@ -63,7 +63,7 @@
             </materialSidebar:SideMenu>
         </Grid>
         <Grid Grid.Column="2">
-            <Image Source="{Binding DeviceScreenImageSource, UpdateSourceTrigger=PropertyChanged}" />
+            <Image Name="deviceImage" />
         </Grid>
     </Grid>
     <Window.DataContext>

@@ -1,4 +1,5 @@
 ﻿using DroidRemote.Core.States;
+using DroidRemote.Windows.MvvmExt;
 using DroidRemote.Windows.Properties;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
@@ -10,10 +11,10 @@ using System.Windows.Media.Imaging;
 
 namespace DroidRemote.Windows.VM
 {
-    internal class RemoteViewerVM : ViewModelBase
+    internal class RemoteViewerVM : ImageStreamingViewModel
     {
         public ICommand ViewLoadedCommand => new DelegateCommand(ViewDidLoad);
-        public ImageSource DeviceScreenImageSource { get; set; }
+        private ImageSource _deviceScreenImageSource;
 
         private readonly RemoteViewerState _remoteViewerState = new RemoteViewerState(Settings.Default.adbExecutablePath);
 
@@ -42,15 +43,26 @@ namespace DroidRemote.Windows.VM
             progressController.SetMessage("Receiving screen");
             //Get first image and display
             var screenImageStream = await _remoteViewerState.GetScreenImageStreamViaProcess();
+
+            /*
+            //Dump to file
+            using (var firstImageStream = File.OpenWrite("firstimage.png"))
+            {
+                screenImageStream.Position = 0; //Reset position
+                screenImageStream.CopyTo(firstImageStream);
+            }
+            */
+
             using (screenImageStream)
             {
-                DeviceScreenImageSource = new BitmapImage();
-                var bitmapScreenSource = (DeviceScreenImageSource as BitmapImage);
+                _deviceScreenImageSource = new BitmapImage();
+                var bitmapScreenSource = (_deviceScreenImageSource as BitmapImage);
                 bitmapScreenSource.BeginInit();
                 bitmapScreenSource.StreamSource = screenImageStream;
                 bitmapScreenSource.EndInit();
-                OnPropertyChanged(nameof(DeviceScreenImageSource));
             }
+
+            ImageDisplayView.ImageControl.Source = _deviceScreenImageSource;
 
             //We're ready!
             await progressController.CloseAsync();

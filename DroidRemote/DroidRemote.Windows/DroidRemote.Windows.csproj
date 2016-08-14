@@ -81,6 +81,8 @@
     <Compile Include="Views\RemoteViewer.xaml.cs">
       <DependentUpon>RemoteViewer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MvvmExt\IImageDisplay.cs" />
+    <Compile Include="MvvmExt\ImageStreamingViewModel.cs" />
     <Compile Include="VM\MainWindowVM.cs" />
     <Compile Include="VM\RemoteViewerVM.cs" />
     <Page Include="Views\MainWindow.xaml">
