@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.25428.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DroidRemote.Core", "DroidRemote.Core\DroidRemote.Core.csproj", "{14B9B3C3-0243-4F46-AABE-0255E4B58FE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DroidRemote.Windows", "DroidRemote.Windows\DroidRemote.Windows.csproj", "{5C8B3C7C-752D-4356-95FA-FC5D46E3DE71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{14B9B3C3-0243-4F46-AABE-0255E4B58FE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14B9B3C3-0243-4F46-AABE-0255E4B58FE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14B9B3C3-0243-4F46-AABE-0255E4B58FE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C8B3C7C-752D-4356-95FA-FC5D46E3DE71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C8B3C7C-752D-4356-95FA-FC5D46E3DE71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C8B3C7C-752D-4356-95FA-FC5D46E3DE71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C8B3C7C-752D-4356-95FA-FC5D46E3DE71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
