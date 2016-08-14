@@ -42,6 +42,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\AdbChecker.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dependencies\SharpAdbClient\SharpAdbClient.Extensions\ADKonnectPlus.csproj">
+      <Project>{58030054-1e04-433e-beb4-4d8143c64c09}</Project>
+      <Name>ADKonnectPlus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dependencies\SharpAdbClient\SharpAdbClient\ADKonnect.csproj">
+      <Project>{65473257-e70f-410b-9269-d0c0f771ea87}</Project>
+      <Name>ADKonnect</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

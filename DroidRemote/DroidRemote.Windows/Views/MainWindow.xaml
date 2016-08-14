@@ -6,10 +6,26 @@
                       xmlns:local="clr-namespace:DroidRemote.Windows"
                       xmlns:vm="clr-namespace:DroidRemote.Windows.VM"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
                       mc:Ignorable="d"
                       Icon="../icon.ico"
-                      Title="DroidRemote" Height="400" Width="600">
+                      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                      Background="{DynamicResource MaterialDesignPaper}"
+                      FontFamily="Roboto"
+                      Title="DroidRemote" Height="300" Width="480">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ViewLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
+        <TextBlock x:Name="titleBlock" HorizontalAlignment="Center" TextWrapping="Wrap" Text="DroidRemote" VerticalAlignment="Top" FontFamily="Roboto" FontSize="24" Margin="0,32,0,0"/>
+        
+        
+        
+        <Button x:Name="connectButton" Content="Connect" Margin="120,180,120,0" VerticalAlignment="Top" Height="55" FontSize="18"/>
+
 
     </Grid>
     <Window.DataContext>

@@ -22,5 +22,29 @@ namespace DroidRemote.Windows.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string adbExecutablePath {
+            get {
+                return ((string)(this["adbExecutablePath"]));
+            }
+            set {
+                this["adbExecutablePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool upgradeRequired {
+            get {
+                return ((bool)(this["upgradeRequired"]));
+            }
+            set {
+                this["upgradeRequired"] = value;
+            }
+        }
     }
 }
