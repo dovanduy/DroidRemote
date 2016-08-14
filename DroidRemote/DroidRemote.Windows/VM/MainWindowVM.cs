@@ -30,10 +30,11 @@ namespace DroidRemote.Windows.VM
                 //Adb was not available. Ask now.
                 string inputAdbPath = await (View as MetroWindow).ShowInputAsync("Please locate ADB", "Please enter the full path to or containing folder of the ADB executable. Alternatively, enter the path to the Android SDK. DroidManager uses ADB to communicate with your device.");
                 //Verify ADB executable
-                if (!String.IsNullOrWhiteSpace(inputAdbPath) && SmartFindAdb(ref inputAdbPath) && AdbChecker.VerifyAdbExecutable(inputAdbPath))
+                Tuple<bool, string> findResult;
+                if (!String.IsNullOrWhiteSpace(inputAdbPath) && (findResult = await Task.Run(() => SmartFindAdb(inputAdbPath))).Item1 && await Task.Run(() => AdbChecker.VerifyAdbExecutable(inputAdbPath)))
                 {
                     //Adb has been verified, save new settings
-                    Properties.Settings.Default.adbExecutablePath = inputAdbPath;
+                    Properties.Settings.Default.adbExecutablePath = findResult.Item2;
                     Properties.Settings.Default.Save();
                     await (View as MetroWindow).ShowMessageAsync("Success", "We're all set! We found a working ADB executable!");
                     return true; //Success
@@ -52,12 +53,12 @@ namespace DroidRemote.Windows.VM
         /// </summary>
         /// <param name="inputAdbPath"></param>
         /// <returns></returns>
-        public static bool SmartFindAdb(ref string inputAdbPath)
+        public static Tuple<bool, string> SmartFindAdb(string inputAdbPath)
         {
             string originalPath = inputAdbPath;
             if (CheckAdbAvailability(inputAdbPath))
             {
-                return true; //It works right away! :D
+                return new Tuple<bool, string>(true, inputAdbPath); //It works right away! :D
             }
             else
             {
@@ -67,27 +68,27 @@ namespace DroidRemote.Windows.VM
                 inputAdbPath = inputAdbPath.Replace("\"", ""); //Remove the double-quote character
                 if (CheckAdbAvailability(inputAdbPath))
                 {
-                    return true; //Got it!
+                    return new Tuple<bool, string>(true, inputAdbPath); //Got it!
                 }
 
                 //Now try appending adb.exe
                 inputAdbPath = Path.Combine(inputAdbPath, "adb.exe");
                 if (CheckAdbAvailability(inputAdbPath))
                 {
-                    return true; //Got it!
+                    return new Tuple<bool, string>(true, inputAdbPath); //Got it!
                 }
 
                 //Now try platform-tools/adb.exe
                 inputAdbPath = Path.Combine(Path.Combine(originalPath, "platform-tools"), "adb.exe");
                 if (CheckAdbAvailability(inputAdbPath))
                 {
-                    return true; //Got it!
+                    return new Tuple<bool, string>(true, inputAdbPath); //Got it!
                 }
 
                 //Sorry, out of luck
             }
 
-            return false; //Adb could not be found :(
+            return new Tuple<bool, string>(true, inputAdbPath); //Adb could not be found :(
         }
 
         public static bool CheckAdbAvailability(string testPath)

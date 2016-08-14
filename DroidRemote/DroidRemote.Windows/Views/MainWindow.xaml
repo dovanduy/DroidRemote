@@ -24,7 +24,7 @@
         
         
         
-        <Button x:Name="connectButton" Content="Connect" Margin="120,180,120,0" VerticalAlignment="Top" Height="55" FontSize="18"/>
+        <Button x:Name="connectButton" Content="Connect" Margin="120,180,120,0" VerticalAlignment="Top" Height="55" FontSize="18" Command="{Binding ConnectToDeviceCommand}"/>
 
 
     </Grid>
