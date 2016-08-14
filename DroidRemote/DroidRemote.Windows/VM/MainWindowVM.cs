@@ -16,6 +16,14 @@ namespace DroidRemote.Windows.VM
         public ICommand ConnectToDeviceCommand => new DelegateCommand(ConnectToDevice);
         public ICommand VisitIridiumIonSiteCommand => new DelegateCommand(VisitIridiumIonSite);
         public ICommand VisitProductHomeCommand => new DelegateCommand(VisitProductHome);
+        public ICommand ResetAdbCommand => new DelegateCommand(ResetAdb);
+
+        private async void ResetAdb(object obj)
+        {
+            Properties.Settings.Default.adbExecutablePath = "";
+            Properties.Settings.Default.Save();
+            await (View as MetroWindow).ShowMessageAsync("Success", "ADB path reset");
+        }
 
         private void VisitProductHome(object obj)
         {

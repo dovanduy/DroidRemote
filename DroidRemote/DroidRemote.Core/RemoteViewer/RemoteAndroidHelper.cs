@@ -3,11 +3,11 @@ using SharpAdbClient.DeviceCommands;
 
 namespace DroidRemote.Core.RemoteViewer
 {
-    internal class RemoteAndroidUtils
+    internal class RemoteAndroidHelper
     {
         public DeviceData CurrentDevice { get; }
 
-        public RemoteAndroidUtils(DeviceData device)
+        public RemoteAndroidHelper(DeviceData device)
         {
             CurrentDevice = device;
         }

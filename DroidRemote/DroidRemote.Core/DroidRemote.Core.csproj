@@ -43,7 +43,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteViewer\AndroidShellOutputReceiver.cs" />
-    <Compile Include="RemoteViewer\RemoteAndroidUtils.cs" />
+    <Compile Include="RemoteViewer\RemoteAndroidHelper.cs" />
+    <Compile Include="RemoteViewer\ScreenStreamer.cs" />
     <Compile Include="States\IntroState.cs" />
     <Compile Include="States\RemoteViewerState.cs" />
     <Compile Include="Utilities\AdbChecker.cs" />
