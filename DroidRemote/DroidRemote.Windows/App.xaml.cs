@@ -11,10 +11,13 @@ namespace DroidRemote.Windows
         protected override void OnStartup(StartupEventArgs e)
         {
             //Auto-upgrade
+            Settings.Default.adbExecutablePath = "";
+            Settings.Default.Save();
             if (Settings.Default.upgradeRequired)
             {
                 Settings.Default.Upgrade();
                 Settings.Default.upgradeRequired = false;
+                Settings.Default.Save();
             }
             base.OnStartup(e);
         }

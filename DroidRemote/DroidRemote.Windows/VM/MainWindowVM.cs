@@ -18,8 +18,7 @@ namespace DroidRemote.Windows.VM
             if (!await VerifyAdbPath())
             {
                 //Adb could not be verified.
-                var tryAgain = await (View as MetroWindow).ShowMessageAsync("Error", "Oops! ADB could not be found. Please restart the application and enter a valid ADB path.");
-                View.WindowHandle.Close();
+                var tryAgain = await (View as MetroWindow).ShowMessageAsync("Error", "Oops! A valid ADB executable could not be found in that path. Verify and try again?");
             }
         }
 
@@ -31,7 +30,7 @@ namespace DroidRemote.Windows.VM
                 string inputAdbPath = await (View as MetroWindow).ShowInputAsync("Please locate ADB", "Please enter the full path to or containing folder of the ADB executable. Alternatively, enter the path to the Android SDK. DroidManager uses ADB to communicate with your device.");
                 //Verify ADB executable
                 Tuple<bool, string> findResult;
-                if (!String.IsNullOrWhiteSpace(inputAdbPath) && (findResult = await Task.Run(() => SmartFindAdb(inputAdbPath))).Item1 && await Task.Run(() => AdbChecker.VerifyAdbExecutable(inputAdbPath)))
+                if (!String.IsNullOrWhiteSpace(inputAdbPath) && (findResult = await Task.Run(() => SmartFindAdb(inputAdbPath))).Item1 && await Task.Run(() => AdbChecker.VerifyAdbExecutable(findResult.Item2)))
                 {
                     //Adb has been verified, save new settings
                     Properties.Settings.Default.adbExecutablePath = findResult.Item2;
@@ -41,7 +40,7 @@ namespace DroidRemote.Windows.VM
                 }
                 else
                 {
-                    await (View as MetroWindow).ShowMessageAsync("Error", "Sorry, we couldn't find a valid ADB executable in that path.");
+                    //await (View as MetroWindow).ShowMessageAsync("Error", "Sorry, we couldn't find a valid ADB executable in that path.");
                     return false; //Validation failure
                 }
             }
