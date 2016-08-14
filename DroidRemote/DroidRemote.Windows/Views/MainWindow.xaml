@@ -6,11 +6,13 @@
                       xmlns:local="clr-namespace:DroidRemote.Windows"
                       xmlns:vm="clr-namespace:DroidRemote.Windows.VM"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
                       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
                       mc:Ignorable="d"
                       Icon="../icon.ico"
                       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                       Background="{DynamicResource MaterialDesignPaper}"
+                      ResizeMode="CanMinimize"
                       FontFamily="Roboto"
                       Title="DroidRemote" Height="300" Width="480">
 
@@ -24,6 +26,14 @@
 
         <Button x:Name="connectButton" Content="Connect" Margin="120,180,120,0" VerticalAlignment="Top" Height="55" FontSize="18" Command="{Binding ConnectToDeviceCommand}" />
     </Grid>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Name="btnIIon" Content="IridiumIon Software" FontSize="14" Command="{Binding VisitIridiumIonSiteCommand}" />
+            <Button Name="btnHomePage" Command="{Binding VisitProductHomeCommand}">
+                <materialDesign:PackIcon Kind="Home" />
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
     <Window.DataContext>
         <vm:MainWindowVM />
     </Window.DataContext>

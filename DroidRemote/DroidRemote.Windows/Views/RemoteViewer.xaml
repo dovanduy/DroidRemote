@@ -5,6 +5,8 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:local="clr-namespace:DroidRemote.Windows"
                       xmlns:vm="clr-namespace:DroidRemote.Windows.VM"
+                      xmlns:materialSidebar="clr-namespace:MaterialSidebar;assembly=MaterialSidebar"
+                      xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
                       mc:Ignorable="d"
@@ -15,7 +17,38 @@
                       ResizeMode="CanResize"
                       Title="DroidRemote Viewer" Height="500" Width="300">
     <Grid>
-
+        <Grid Grid.Column="0" Name="MenuGrid">
+            <materialSidebar:SideMenu HorizontalAlignment="Left" x:Name="Menu"
+                                   Theme="Default"
+                                   ClosingType="Manual"
+                                   State="Visible" ShadowBackground="#00000000">
+                <materialSidebar:SideMenu.Menu>
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Margin="0,0,360,0">
+                        <StackPanel Orientation="Vertical">
+                            <Border Background="#FF1872BD">
+                                <Grid Margin="10">
+                                    <materialDesign:PackIcon Kind="Android" />
+                                </Grid>
+                            </Border>
+                            <!-- SelectedCommand="{Binding DeviceSelectedCommand}" -->
+                            <materialSidebar:MenuButton>
+                                <Grid Margin="10">
+                                    <materialDesign:PackIcon Kind="Home" />
+                                </Grid>
+                            </materialSidebar:MenuButton>
+                            <materialSidebar:MenuButton>
+                                <Grid Margin="10">
+                                    <materialDesign:PackIcon Kind="ExitToApp" />
+                                </Grid>
+                            </materialSidebar:MenuButton>
+                        </StackPanel>
+                    </ScrollViewer>
+                </materialSidebar:SideMenu.Menu>
+            </materialSidebar:SideMenu>
+        </Grid>
+        <Grid Grid.Column="2">
+            
+        </Grid>
     </Grid>
     <Window.DataContext>
         <vm:RemoteViewerVM />

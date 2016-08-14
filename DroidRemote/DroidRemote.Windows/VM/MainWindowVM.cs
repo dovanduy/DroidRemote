@@ -1,4 +1,5 @@
-﻿using DroidRemote.Core.Utilities;
+﻿using DroidRemote.Core.States;
+using DroidRemote.Core.Utilities;
 using DroidRemote.Windows.Views;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
@@ -13,8 +14,21 @@ namespace DroidRemote.Windows.VM
     internal class MainWindowVM : ViewModelBase
     {
         public ICommand ConnectToDeviceCommand => new DelegateCommand(ConnectToDevice);
+        public ICommand VisitIridiumIonSiteCommand => new DelegateCommand(VisitIridiumIonSite);
+        public ICommand VisitProductHomeCommand => new DelegateCommand(VisitProductHome);
+
+        private void VisitProductHome(object obj)
+        {
+            _introState.VisitProductHome();
+        }
+
+        private void VisitIridiumIonSite(object obj)
+        {
+            _introState.VisitIridiumIonSite();
+        }
 
         private WindowService _windowService = new WindowService();
+        private IntroState _introState = new IntroState();
 
         private async void ConnectToDevice(object obj)
         {
@@ -28,6 +42,7 @@ namespace DroidRemote.Windows.VM
             //Launch the viewer
             (View as MetroWindow).Hide();
             _windowService.ShowWindowDialog<RemoteViewer>(View.WindowHandle);
+            (View as MetroWindow).Show();
         }
 
         private async Task<bool> VerifyAdbPath()
