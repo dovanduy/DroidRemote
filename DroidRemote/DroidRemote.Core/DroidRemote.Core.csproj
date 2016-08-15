@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoteViewer\AndroidDeviceKeys.cs" />
     <Compile Include="RemoteViewer\AndroidShellOutputReceiver.cs" />
     <Compile Include="RemoteViewer\RemoteAndroidHelper.cs" />
     <Compile Include="RemoteViewer\ScreenStreamer.cs" />
