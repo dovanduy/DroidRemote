@@ -4,6 +4,7 @@ using DroidRemote.Windows.Properties;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using NanoMvvm;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -21,6 +22,19 @@ namespace DroidRemote.Windows.VM
         private async void ViewDidLoad(object obj)
         {
             await PrepareConnection();
+
+            //Now run a loop to update the screen as fast as possible
+            await Task.Factory.StartNew(async () => await KeepScreenUpdated());
+        }
+
+        private async Task KeepScreenUpdated()
+        {
+            while (true)
+            {
+                await Task.Delay(100);
+                var screenImageStream = await _remoteViewerState.GetScreenImageStreamViaProcess();
+                await UpdateScreenDisplay(screenImageStream);
+            }
         }
 
         private async Task PrepareConnection()
@@ -53,19 +67,34 @@ namespace DroidRemote.Windows.VM
             }
             */
 
+            await UpdateScreenDisplay(screenImageStream);
+
+            //We're ready!
+            await progressController.CloseAsync();
+        }
+
+        private async Task UpdateScreenDisplay(MemoryStream screenImageStream)
+        {
+            //Destroy old bitmap and create new one
+            //_deviceScreenImageSource?.StreamSource.Dispose();
+            _deviceScreenImageSource = null;
             _deviceScreenImageSource = new BitmapImage();
 
             using (screenImageStream)
             {
                 _deviceScreenImageSource.BeginInit();
-                _deviceScreenImageSource.StreamSource = screenImageStream;
+                screenImageStream.Position = 0;
+                _deviceScreenImageSource.StreamSource = new MemoryStream();
+                screenImageStream.CopyTo(_deviceScreenImageSource.StreamSource);
+                //_deviceScreenImageSource.CacheOption = BitmapCacheOption.OnLoad;
                 _deviceScreenImageSource.EndInit();
-
-                ImageDisplayView.ImageControl.Source = _deviceScreenImageSource;
+                _deviceScreenImageSource.Freeze();
             }
 
-            //We're ready!
-            await progressController.CloseAsync();
+            await ImageDisplayView.ImageControl.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                ImageDisplayView.ImageControl.Source = _deviceScreenImageSource;
+            }));
         }
 
         private static void SaveBitmapImageToFile(BitmapImage image, string fileName)
