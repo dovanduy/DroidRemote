@@ -63,7 +63,7 @@
             </materialSidebar:SideMenu>
         </Grid>
         <Grid Grid.Column="2">
-            <Image Name="deviceImage" />
+            <Image Name="deviceImage" Source="/icon.ico" />
         </Grid>
     </Grid>
     <Window.DataContext>

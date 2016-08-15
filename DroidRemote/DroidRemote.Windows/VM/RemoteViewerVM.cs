@@ -4,9 +4,9 @@ using DroidRemote.Windows.Properties;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using NanoMvvm;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace DroidRemote.Windows.VM
@@ -14,7 +14,7 @@ namespace DroidRemote.Windows.VM
     internal class RemoteViewerVM : ImageStreamingViewModel
     {
         public ICommand ViewLoadedCommand => new DelegateCommand(ViewDidLoad);
-        private ImageSource _deviceScreenImageSource;
+        private BitmapImage _deviceScreenImageSource;
 
         private readonly RemoteViewerState _remoteViewerState = new RemoteViewerState(Settings.Default.adbExecutablePath);
 
@@ -53,19 +53,29 @@ namespace DroidRemote.Windows.VM
             }
             */
 
+            _deviceScreenImageSource = new BitmapImage();
+
             using (screenImageStream)
             {
-                _deviceScreenImageSource = new BitmapImage();
-                var bitmapScreenSource = (_deviceScreenImageSource as BitmapImage);
-                bitmapScreenSource.BeginInit();
-                bitmapScreenSource.StreamSource = screenImageStream;
-                bitmapScreenSource.EndInit();
-            }
+                _deviceScreenImageSource.BeginInit();
+                _deviceScreenImageSource.StreamSource = screenImageStream;
+                _deviceScreenImageSource.EndInit();
 
-            ImageDisplayView.ImageControl.Source = _deviceScreenImageSource;
+                ImageDisplayView.ImageControl.Source = _deviceScreenImageSource;
+            }
 
             //We're ready!
             await progressController.CloseAsync();
+        }
+
+        private static void SaveBitmapImageToFile(BitmapImage image, string fileName)
+        {
+            using (var ofs = File.OpenWrite(fileName))
+            {
+                var encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create((BitmapImage)image));
+                encoder.Save(ofs);
+            }
         }
     }
 }
