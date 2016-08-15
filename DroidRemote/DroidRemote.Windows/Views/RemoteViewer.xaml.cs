@@ -1,5 +1,6 @@
 ﻿using DroidRemote.Windows.MvvmExt;
 using NanoMvvm;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -20,5 +21,13 @@ namespace DroidRemote.Windows.Views
         public Window WindowHandle => this;
 
         public Image ImageControl => deviceImage;
+
+        //MaterialButton Events
+
+        public void ExitToAppClicked(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

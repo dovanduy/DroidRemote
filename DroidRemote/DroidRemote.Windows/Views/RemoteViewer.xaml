@@ -52,7 +52,7 @@
                                     <materialDesign:PackIcon Kind="Settings" />
                                 </Grid>
                             </materialSidebar:MenuButton>
-                            <materialSidebar:MenuButton>
+                            <materialSidebar:MenuButton Text="" Click="ExitToAppClicked">
                                 <Grid Margin="10">
                                     <materialDesign:PackIcon Kind="ExitToApp" />
                                 </Grid>

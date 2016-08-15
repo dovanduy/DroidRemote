@@ -12,7 +12,7 @@ namespace DroidRemote.Core.States
 
         public void VisitProductHome()
         {
-            Process.Start("https://iridiumion.xyz/projects/droidmanager");
+            Process.Start("https://iridiumion.xyz/projects/droidmanager/droidremote.html");
         }
     }
 }
